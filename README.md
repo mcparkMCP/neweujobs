@@ -28,7 +28,8 @@ Open [http://localhost:3000](http://localhost:3000) to see the app.
 - **Framework:** Next.js 14 (App Router)
 - **Styling:** Tailwind CSS
 - **Language:** TypeScript
-- **Deployment:** Vercel-ready
+- **Database:** MongoDB 7
+- **Deployment:** Docker on Hetzner (AlmaLinux 9) with GitHub Actions CI/CD
 
 ## 📁 Project Structure
 
@@ -125,38 +126,82 @@ This will open multiple terminal windows, each with a Claude agent working on:
 9. International Organizations
 10. Traineeships
 
-## 🚀 Deployment
+## Deployment
 
-### Deploy to Vercel
+### Infrastructure
 
-1. Push to GitHub
-2. Import project in Vercel
-3. Deploy!
+- **Server:** vani3 (AlmaLinux 9, Hetzner)
+- **Runtime:** Docker Compose (Next.js app + MongoDB 7)
+- **Reverse proxy:** Nginx with self-signed SSL (Cloudflare handles public TLS)
+- **CI/CD:** GitHub Actions with zero-downtime blue-green deploys
 
-```bash
-# Or use Vercel CLI
-npm i -g vercel
-vercel
+### How Deployment Works
+
+Pushing to `main` triggers an automated deploy via GitHub Actions:
+
+```
+Push to main → GitHub Actions → SSH into vani3 → git pull
+  → docker compose build → start new container on alternate port
+  → health check (up to 90s) → swap nginx upstream → stop old container
 ```
 
-### Environment Variables (for production)
+The deploy uses **blue-green deployment** alternating between two port slots:
+- **Blue:** port 3000 (container `eujobs-app`)
+- **Green:** port 3010 (container `eujobs-green`)
 
-```env
-# Database
-DATABASE_URL=postgresql://...
+The active slot is tracked in `.deploy-state`. Nginx switches to the new container only after the health check passes, ensuring zero downtime.
 
-# Auth
-NEXTAUTH_SECRET=your-secret
-NEXTAUTH_URL=https://your-domain.com
+If the health check fails, the new container is stopped and removed — the old container continues serving traffic.
 
-# OAuth (optional)
-GOOGLE_CLIENT_ID=...
-GOOGLE_CLIENT_SECRET=...
-LINKEDIN_CLIENT_ID=...
-LINKEDIN_CLIENT_SECRET=...
+### Key Files
 
-# Email
-RESEND_API_KEY=...
+| File | Purpose |
+|------|---------|
+| `deploy.sh` | Blue-green deploy script (runs on vani3) |
+| `.github/workflows/deploy.yml` | GitHub Actions workflow |
+| `.deploy-state` | Tracks active port slot (gitignored) |
+| `docker-compose.yml` | Docker services (app + MongoDB) |
+| `Dockerfile` | Next.js production build |
+| `.env.production` | Production env vars (gitignored) |
+
+### GitHub Secrets
+
+These are configured in the repo under Settings > Secrets > Actions:
+
+| Secret | Description |
+|--------|-------------|
+| `DEPLOY_SSH_KEY` | SSH private key for vani3 access |
+| `DEPLOY_HOST` | Server IP address |
+| `DEPLOY_USER` | SSH user (`root`) |
+
+### Manual Operations
+
+**Check current state:**
+```bash
+ssh vani3 "cat /data/repos/eujobs/neweujobs/.deploy-state"   # active port
+ssh vani3 "docker ps | grep eujobs"                            # running containers
+ssh vani3 "cat /etc/nginx/conf.d/eujobs.conf"                  # nginx config
+```
+
+**Trigger a deploy manually on vani3:**
+```bash
+ssh vani3 "cd /data/repos/eujobs/neweujobs && git pull --ff-only origin main && bash deploy.sh"
+```
+
+**Rollback to previous slot:**
+```bash
+# If green (3010) is active and you want to go back to blue (3000):
+ssh vani3 "docker start eujobs-app"
+# Update nginx to point back to old port:
+ssh vani3 "sed -i 's/server 127.0.0.1:3010/server 127.0.0.1:3000/' /etc/nginx/conf.d/eujobs.conf && nginx -t && nginx -s reload"
+ssh vani3 "echo 3000 > /data/repos/eujobs/neweujobs/.deploy-state"
+ssh vani3 "docker stop eujobs-green && docker rm eujobs-green"
+```
+
+**View deploy logs:**
+```bash
+gh run list -R chaollapark/neweujobs -L 5
+gh run view <run-id> -R chaollapark/neweujobs --log
 ```
 
 ## 📝 License
