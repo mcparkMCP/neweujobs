@@ -114,9 +114,9 @@ export default function AlertsPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Alert Frequency</label>
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-3">
                 {['instant', 'daily', 'weekly'].map((freq) => (
-                  <label key={freq} className="flex items-center text-gray-700 dark:text-gray-300">
+                  <label key={freq} className="flex items-center text-gray-700 dark:text-gray-300 cursor-pointer px-3 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
                     <input
                       type="radio"
                       name="frequency"

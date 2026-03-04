@@ -17,7 +17,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero */}
-      <div className="bg-eu-blue py-20">
+      <div className="bg-eu-blue py-12 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Connecting EU Talent with Opportunity
@@ -49,7 +49,7 @@ export default function AboutPage() {
               passionate about European policy and understand the unique dynamics of the Brussels ecosystem.
             </p>
           </div>
-          <div className="bg-white rounded-2xl shadow-lg p-8">
+          <div className="bg-white rounded-2xl shadow-lg p-5 sm:p-8">
             <div className="grid grid-cols-2 gap-6 text-center">
               <div>
                 <p className="text-4xl font-bold text-eu-blue">500+</p>
@@ -111,7 +111,7 @@ export default function AboutPage() {
       {/* Team */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Our Team</h2>
-        <div className="grid md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {team.map((member) => (
             <div key={member.name} className="text-center">
               <div className="w-24 h-24 bg-eu-blue/10 rounded-full flex items-center justify-center mx-auto mb-4">

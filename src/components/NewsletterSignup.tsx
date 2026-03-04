@@ -64,7 +64,7 @@ export default function NewsletterSignup() {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 w-full max-w-sm">
+    <div className="fixed bottom-4 left-4 right-4 z-50 sm:left-auto sm:w-full sm:max-w-sm">
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/30 border border-gray-200 dark:border-gray-600 p-5 relative">
         {/* Close Button */}
         <button

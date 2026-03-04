@@ -76,7 +76,7 @@ export default async function LobbyingEntitiesPage({ searchParams }: PageProps) 
             {interestFilter && (
               <Link
                 href="/lobbying-entities"
-                className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors"
+                className="inline-flex items-center px-3 py-2 rounded-full text-sm font-medium bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors"
               >
                 Clear filter &times;
               </Link>
@@ -85,7 +85,7 @@ export default async function LobbyingEntitiesPage({ searchParams }: PageProps) 
               <Link
                 key={item.interest}
                 href={`/lobbying-entities?interest=${encodeURIComponent(item.interest)}`}
-                className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                className={`inline-flex items-center px-3 py-2 rounded-full text-sm font-medium transition-colors ${
                   interestFilter === item.interest
                     ? 'bg-eu-blue text-white'
                     : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
@@ -97,7 +97,7 @@ export default async function LobbyingEntitiesPage({ searchParams }: PageProps) 
             ))}
             <Link
               href="/lobbying-entities/interests"
-              className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-eu-blue/10 dark:bg-eu-blue/20 text-eu-blue dark:text-blue-300 hover:bg-eu-blue/20 dark:hover:bg-eu-blue/30 transition-colors"
+              className="inline-flex items-center px-3 py-2 rounded-full text-sm font-medium bg-eu-blue/10 dark:bg-eu-blue/20 text-eu-blue dark:text-blue-300 hover:bg-eu-blue/20 dark:hover:bg-eu-blue/30 transition-colors"
             >
               View All Interests &rarr;
             </Link>
@@ -191,7 +191,7 @@ export default async function LobbyingEntitiesPage({ searchParams }: PageProps) 
                   <Link
                     key={pageNum}
                     href={`/lobbying-entities?page=${pageNum}${interestFilter ? `&interest=${encodeURIComponent(interestFilter)}` : ''}`}
-                    className={`w-10 h-10 flex items-center justify-center rounded-lg text-sm font-medium transition-colors ${
+                    className={`w-11 h-11 flex items-center justify-center rounded-lg text-sm font-medium transition-colors ${
                       pageNum === currentPage
                         ? 'bg-eu-blue text-white'
                         : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'

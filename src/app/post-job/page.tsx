@@ -152,7 +152,7 @@ function PostJobForm() {
         </div>
 
         {/* Plan Selection */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 mb-8">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 sm:p-8 mb-8">
           <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Select Your Plan</h2>
           <div className="grid md:grid-cols-3 gap-4">
             {plans.map((plan) => (
@@ -183,7 +183,7 @@ function PostJobForm() {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Basic Info */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 sm:p-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Job Details</h2>
 
             <div className="space-y-6">
@@ -286,7 +286,7 @@ function PostJobForm() {
           </div>
 
           {/* Description */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 sm:p-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Job Description</h2>
 
             <div>
@@ -306,7 +306,7 @@ function PostJobForm() {
           </div>
 
           {/* Policy Areas */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 sm:p-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Policy Areas</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">Select up to 4 policy areas relevant to this role (optional)</p>
 
@@ -343,7 +343,7 @@ function PostJobForm() {
           </div>
 
           {/* Contact & Application */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 sm:p-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Contact &amp; Application</h2>
 
             <div className="space-y-6">

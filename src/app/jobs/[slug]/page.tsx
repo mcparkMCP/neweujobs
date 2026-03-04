@@ -184,10 +184,10 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
           {/* Main Content */}
           <main className="flex-1">
             {/* Job Header */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 mb-6">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 sm:p-8 mb-6">
               <div className="flex items-start gap-6">
-                <div className="w-20 h-20 rounded-xl bg-eu-blue flex items-center justify-center flex-shrink-0">
-                  <span className="text-white font-bold text-2xl">
+                <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-xl bg-eu-blue flex items-center justify-center flex-shrink-0">
+                  <span className="text-white font-bold text-lg sm:text-2xl">
                     {job.company.name.charAt(0)}
                   </span>
                 </div>
@@ -203,7 +203,7 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
                       </span>
                     )}
                   </div>
-                  <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{job.title}</h1>
+                  <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">{job.title}</h1>
                   <Link
                     href={`/companies/${job.company.slug}`}
                     className="text-xl text-eu-blue hover:underline"
@@ -237,8 +237,22 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
               </div>
             </div>
 
+            {/* Mobile Apply CTA */}
+            {!isRetired && applyUrl && (
+              <div className="lg:hidden mb-6">
+                <a
+                  href={applyUrl}
+                  target={applyUrl.startsWith('mailto:') ? undefined : '_blank'}
+                  rel={applyUrl.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+                  className="btn-primary w-full text-lg py-4 block text-center"
+                >
+                  Apply Now
+                </a>
+              </div>
+            )}
+
             {/* Job Description */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 mb-6">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 sm:p-8 mb-6">
               <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Job Description</h2>
               <div
                 className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300"
@@ -248,7 +262,7 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
 
             {/* Requirements */}
             {job.requirements && (
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 mb-6">
+              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 sm:p-8 mb-6">
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Requirements</h2>
                 <div
                   className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300"
@@ -259,7 +273,7 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
 
             {/* Contact Info */}
             {(job.contactEmail || job.contactPhone) && (
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 mb-6">
+              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 sm:p-8 mb-6">
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Contact Information</h2>
                 <div className="space-y-3">
                   {job.contactName && (
@@ -289,7 +303,7 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
             )}
 
             {/* About Company */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 sm:p-8">
               <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">About {job.company.name}</h2>
               {job.company.description && (
                 <p className="text-gray-700 dark:text-gray-300 mb-4">{job.company.description}</p>
