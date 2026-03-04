@@ -8,13 +8,16 @@ function serialize<T>(doc: T): T {
 export async function getOrgCareerGuides(page = 1, perPage = 50) {
   await dbConnect();
 
+  const collection = OrgCareerGuide.collection;
+  const pipeline = [
+    { $sort: { organization: 1 } },
+    { $skip: (page - 1) * perPage },
+    { $limit: perPage },
+    { $project: { slug: 1, title: 1, organization: 1, entitySlug: 1, wordCount: 1, generatedAt: 1, description: 1 } },
+  ];
+
   const [items, total] = await Promise.all([
-    OrgCareerGuide.aggregate([
-      { $sort: { organization: 1 } },
-      { $skip: (page - 1) * perPage },
-      { $limit: perPage },
-      { $project: { slug: 1, title: 1, organization: 1, entitySlug: 1, wordCount: 1, generatedAt: 1, description: 1 } },
-    ]).allowDiskUse(true),
+    collection.aggregate(pipeline, { allowDiskUse: true }).toArray(),
     OrgCareerGuide.countDocuments({}),
   ]);
 
