@@ -1,143 +1,159 @@
-# 🇪🇺 EU Jobs Brussels
+# EU Jobs Brussels
 
 The leading job board for EU institutions, NGOs, think tanks, and public affairs positions in Brussels.
-This is the upgraded website (the old handcoded codebase is https://github.com/mcparkMCP/eujobs-platform ).
+Live at [eujobs.co](https://eujobs.co).
 
-**Competitors:** jobsin.brussels, eurobrussels.com, euractiv.jobs.com, eujobs.co
+Previous handcoded codebase: [mcparkMCP/eujobs-platform](https://github.com/mcparkMCP/eujobs-platform)
 
-## 🚀 Quick Start
+**Competitors:** jobsin.brussels, eurobrussels.com, euractiv.jobs.com
+
+## Tech Stack
+
+- **Framework:** Next.js 14 (App Router, `output: 'standalone'`)
+- **Styling:** Tailwind CSS 3.4 with `@tailwindcss/typography`
+- **Language:** TypeScript 5
+- **Database:** MongoDB 7 (self-hosted in Docker — no paid cloud service)
+- **ODM:** Mongoose 9
+- **Payments:** Stripe
+- **Email:** Brevo (formerly Sendinblue)
+- **Analytics:** PostHog
+- **Deployment:** Docker on Hetzner VPS (AlmaLinux 9), Cloudflare DNS/TLS
+
+## Quick Start
 
 ```bash
-# Install dependencies
 npm install
-
-# Run development server
-npm run dev
-
-# Build for production
+npm run dev        # http://localhost:3000
 npm run build
-
-# Start production server
 npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see the app.
+## Database
 
-## 🛠️ Tech Stack
+The app uses a **self-hosted MongoDB 7** instance running in Docker alongside the app — no MongoDB Atlas or any paid database service.
 
-- **Framework:** Next.js 14 (App Router)
-- **Styling:** Tailwind CSS
-- **Language:** TypeScript
-- **Database:** MongoDB 7
-- **Deployment:** Docker on Hetzner (AlmaLinux 9) with GitHub Actions CI/CD
+- **Connection:** `mongodb://eujobs-mongo:27017/test` (Docker internal network)
+- **Database name:** `test` (the default Mongoose database)
+- **Storage:** Docker volume `mongo-data` persisted on the host
 
-## 📁 Project Structure
+### Collections
+
+| Collection | Count | Description |
+|------------|-------|-------------|
+| `jobs` | ~79,000 | Job listings (scraped + posted) |
+| `eu_interest_representatives` | ~12,700 | EU Transparency Register lobbying entities |
+| `org_career_guides` | ~12,000 | AI-generated career guides per organization |
+| `career_guides` | 15 | Curated career guides (blog-style) |
+| `bib_consultancies` | 71 | Best in Brussels: consultancy firms |
+| `bib_consultants` | 228 | Best in Brussels: individual consultants |
+| `bib_specialist_categories` | 27 | Best in Brussels: specialization categories |
+| `bib_law_firms` | 6 | Best in Brussels: law firms |
+| `bib_trainers` | 5 | Best in Brussels: trainers |
+| `bib_digital_tools` | 6 | Best in Brussels: digital tools |
+| `bib_intelligence_systems` | 16 | Best in Brussels: intelligence systems |
+| `users` | 2 | Admin accounts |
+
+### Companies
+
+Companies are **not stored in MongoDB**. They are derived at runtime from the `jobs` collection by extracting unique `companyName` values. The logic is in `src/lib/data.ts` (`getUniqueCompanies`, `getAllCompaniesWithCounts`, `getCompanyBySlug`).
+
+## Project Structure
 
 ```
-eu-jobs-brussels/
-├── src/
-│   ├── app/                    # Next.js App Router pages
-│   │   ├── auth/               # Login & Register pages
-│   │   ├── categories/         # Category listing & detail
-│   │   ├── companies/          # Company listing & detail
-│   │   ├── jobs/               # Job listing & detail
-│   │   ├── post-job/           # Job posting form
-│   │   ├── layout.tsx          # Root layout
-│   │   ├── page.tsx            # Homepage
-│   │   └── globals.css         # Global styles
-│   ├── components/
-│   │   ├── jobs/               # Job-related components
-│   │   ├── layout/             # Header, Footer
-│   │   └── ui/                 # Reusable UI components
-│   ├── lib/
-│   │   └── data.ts             # Mock data (replace with DB)
-│   └── types/
-│       └── index.ts            # TypeScript types
-├── public/                     # Static assets
-├── PROJECT_PLAN.md             # Detailed project plan
-├── launch-agents.sh            # Multi-agent launcher
-└── package.json
+src/
+├── app/                        # Next.js App Router pages
+│   ├── jobs/                   # Job listing + detail (/jobs, /jobs/[slug])
+│   ├── companies/              # Company listing + detail (derived from jobs)
+│   ├── categories/             # Job category listing + detail
+│   ├── lobbying-entities/      # EU Transparency Register entities
+│   ├── career-guides/          # Org-specific career guides (~12,000)
+│   ├── blog/                   # Curated career guide articles
+│   ├── best-in-brussels/       # Consultancy/law firm directory
+│   ├── pricing/                # Job posting pricing
+│   ├── post-job/               # Job posting form (Stripe checkout)
+│   ├── alerts/                 # Job alert signup
+│   ├── fairpay/                # Salary calculator
+│   ├── about/                  # About page
+│   ├── contact/                # Contact form
+│   ├── privacy/                # Privacy policy
+│   ├── terms/                  # Terms of service
+│   ├── actions/                # Server actions (job posting, Stripe)
+│   ├── api/                    # API routes (webhooks, search, sitemap)
+│   ├── layout.tsx              # Root layout (header, footer, analytics)
+│   ├── page.tsx                # Homepage
+│   └── not-found.tsx           # 404 page
+├── components/
+│   ├── Breadcrumb.tsx          # Reusable breadcrumb with JSON-LD
+│   ├── NewsletterSignup.tsx    # Newsletter popup
+│   ├── jobs/                   # JobCard, JobFilters, etc.
+│   ├── layout/                 # Header, Footer
+│   └── ui/                     # Reusable UI components
+├── lib/
+│   ├── data.ts                 # Job/company/category data fetching
+│   ├── dbConnect.ts            # Mongoose connection singleton
+│   ├── careerGuideData.ts      # Career guide queries
+│   ├── orgCareerGuideData.ts   # Org career guide queries
+│   └── stripe.ts               # Stripe helpers
+├── models/                     # Mongoose models
+│   ├── Job.ts
+│   ├── LobbyingEntity.ts
+│   └── ...
+└── types/
+    └── index.ts                # TypeScript types
 ```
 
-## ✨ Features
+## Key Pages
 
-### Implemented (MVP)
-- ✅ Homepage with featured jobs and search
-- ✅ Job listings with filters (category, contract, experience, remote)
-- ✅ Job detail pages with full information
-- ✅ Company directory and profiles
-- ✅ Category browsing
-- ✅ Job posting form
-- ✅ User authentication pages (UI)
-- ✅ Mobile-responsive design
-- ✅ EU-themed branding
+| Route | What | Data Source |
+|-------|------|-------------|
+| `/` | Homepage with search + featured jobs | `jobs` collection |
+| `/jobs` | Paginated job listings with filters | `jobs` collection |
+| `/jobs/[slug]` | Job detail with Apply button | `jobs` collection |
+| `/companies` | ~8,800 companies derived from jobs | `jobs` (runtime aggregation) |
+| `/companies/[slug]` | Company profile + open positions | `jobs` (filtered by company) |
+| `/categories/[slug]` | Jobs by category | Hardcoded categories + `jobs` |
+| `/lobbying-entities` | Paginated EU transparency entities | `eu_interest_representatives` |
+| `/lobbying-entities/[slug]` | Entity detail + related jobs | `eu_interest_representatives` + `jobs` |
+| `/career-guides` | Paginated org career guides | `org_career_guides` |
+| `/career-guides/[slug]` | Full career guide article | `org_career_guides` |
+| `/blog` | Curated career guide articles | `career_guides` |
+| `/best-in-brussels` | Consultancy/lobbying firm directory | `bib_*` collections |
+| `/pricing` | Job posting plans | Static |
+| `/post-job` | Job posting form → Stripe checkout | Stripe API |
+| `/fairpay` | EU salary calculator | Static data |
 
-### Coming Soon
-- 🔄 Database integration (Prisma + Supabase)
-- 🔄 User authentication (NextAuth.js)
-- 🔄 Job application system
-- 🔄 Employer dashboard
-- 🔄 Job alerts & notifications
-- 🔄 Payment integration
-- 🔄 SEO optimization
+## SEO
 
-## 🤖 Multi-Agent Development
-
-This project supports parallel development using multiple Claude agents:
-
-```bash
-# Launch the multi-agent script
-./launch-agents.sh
-```
-
-This will open multiple terminal windows, each with a Claude agent working on:
-1. **Agent 1:** Database schema & Prisma setup
-2. **Agent 2:** Authentication (NextAuth.js)
-3. **Agent 3:** API routes for jobs
-4. **Agent 4:** Employer dashboard
-5. **Agent 5:** SEO & sitemap
-6. **Agent 6:** Email notifications
-
-## 🎨 Design System
-
-### Colors
-- **EU Blue:** `#003399` - Primary brand color
-- **EU Yellow:** `#FFCC00` - Accent color
-- **EU Dark:** `#001a4d` - Dark variant
-- **EU Light:** `#e6ecf5` - Light backgrounds
-
-### Components
-- `.btn-primary` - Primary action buttons
-- `.btn-secondary` - Secondary buttons
-- `.card` - Content cards
-- `.input-field` - Form inputs
-- `.badge-*` - Status badges
-
-## 📊 Job Categories
-
-1. EU Institutions
-2. EU Agencies
-3. Trade Associations
-4. NGOs & Civil Society
-5. Think Tanks
-6. Public Affairs & Lobbying
-7. Law Firms
-8. Media & Communications
-9. International Organizations
-10. Traineeships
+- **Breadcrumbs:** Every page (except homepage) has a `<Breadcrumb>` component that renders both a visible nav bar and a `BreadcrumbList` JSON-LD script for Google.
+- **Structured data:** Job detail pages include `JobPosting` JSON-LD. Lobbying entity pages include `Organization` JSON-LD. Career guides include `Article` JSON-LD.
+- **Sitemaps:** Dynamic sitemaps at `/api/sitemap`, `/api/sitemap-jobs`, `/api/sitemap-entities`, `/api/sitemap-career-guides`.
+- **Meta tags:** Every page has `generateMetadata` with title, description, Open Graph, and Twitter Card tags.
 
 ## Deployment
 
 ### Infrastructure
 
-- **Server:** vani3 (AlmaLinux 9, Hetzner)
-- **Runtime:** Docker Compose (Next.js app + MongoDB 7)
+- **Server:** vani3 (Hetzner VPS, AlmaLinux 9, IP `157.180.7.100`)
+- **Runtime:** Docker Compose (Next.js app + MongoDB 7, bridge network)
 - **Reverse proxy:** Nginx with self-signed SSL (Cloudflare handles public TLS)
 - **CI/CD:** GitHub Actions with zero-downtime blue-green deploys
 
-### How Deployment Works
+### Docker Setup
 
-Pushing to `main` triggers an automated deploy via GitHub Actions:
+```yaml
+# docker-compose.yml
+services:
+  eujobs:      # Next.js app, port 3000 (internal)
+  mongo:       # MongoDB 7, port 27017 (internal), volume: mongo-data
+```
+
+Both containers run on a Docker bridge network (`neweujobs_eujobs-network`). The app connects to MongoDB via `mongodb://eujobs-mongo:27017/test`.
+
+At build time, MongoDB is not available, so the Dockerfile sets a dummy `MONGODB_URI=mongodb://localhost:27017`. The real URI is injected at runtime via `.env.production`.
+
+### Blue-Green Deployment
+
+Pushing to `main` triggers GitHub Actions:
 
 ```
 Push to main → GitHub Actions → SSH into vani3 → git pull
@@ -145,13 +161,11 @@ Push to main → GitHub Actions → SSH into vani3 → git pull
   → health check (up to 90s) → swap nginx upstream → stop old container
 ```
 
-The deploy uses **blue-green deployment** alternating between two port slots:
+Two port slots:
 - **Blue:** port 3000 (container `eujobs-app`)
 - **Green:** port 3010 (container `eujobs-green`)
 
-The active slot is tracked in `.deploy-state`. Nginx switches to the new container only after the health check passes, ensuring zero downtime.
-
-If the health check fails, the new container is stopped and removed — the old container continues serving traffic.
+Active slot tracked in `.deploy-state`. Nginx switches only after health check passes.
 
 ### Key Files
 
@@ -161,12 +175,10 @@ If the health check fails, the new container is stopped and removed — the old 
 | `.github/workflows/deploy.yml` | GitHub Actions workflow |
 | `.deploy-state` | Tracks active port slot (gitignored) |
 | `docker-compose.yml` | Docker services (app + MongoDB) |
-| `Dockerfile` | Next.js production build |
+| `Dockerfile` | Multi-stage Next.js production build |
 | `.env.production` | Production env vars (gitignored) |
 
 ### GitHub Secrets
-
-These are configured in the repo under Settings > Secrets > Actions:
 
 | Secret | Description |
 |--------|-------------|
@@ -176,45 +188,53 @@ These are configured in the repo under Settings > Secrets > Actions:
 
 ### Manual Operations
 
-**Check current state:**
 ```bash
-ssh vani3 "cat /data/repos/eujobs/neweujobs/.deploy-state"   # active port
-ssh vani3 "docker ps | grep eujobs"                            # running containers
-ssh vani3 "cat /etc/nginx/conf.d/eujobs.conf"                  # nginx config
-```
+# Check status
+ssh vani3 "cat /data/repos/eujobs/neweujobs/.deploy-state"
+ssh vani3 "docker ps | grep eujobs"
 
-**Trigger a deploy manually on vani3:**
-```bash
+# Manual deploy
 ssh vani3 "cd /data/repos/eujobs/neweujobs && git pull --ff-only origin main && bash deploy.sh"
-```
 
-**Rollback to previous slot:**
-```bash
-# If green (3010) is active and you want to go back to blue (3000):
-ssh vani3 "docker start eujobs-app"
-# Update nginx to point back to old port:
-ssh vani3 "sed -i 's/server 127.0.0.1:3010/server 127.0.0.1:3000/' /etc/nginx/conf.d/eujobs.conf && nginx -t && nginx -s reload"
-ssh vani3 "echo 3000 > /data/repos/eujobs/neweujobs/.deploy-state"
-ssh vani3 "docker stop eujobs-green && docker rm eujobs-green"
-```
-
-**View deploy logs:**
-```bash
+# View deploy logs
 gh run list -R chaollapark/neweujobs -L 5
-gh run view <run-id> -R chaollapark/neweujobs --log
 ```
 
-## 📝 License
+## Recent Changes
+
+### Breadcrumbs & Company Fix (aa1acb2)
+- Created reusable `Breadcrumb` component with JSON-LD structured data and `aria-label` accessibility
+- Added breadcrumbs to all 21 page types (listing pages, detail pages, static pages)
+- Fixed company detail pages returning 404: `getCompanyBySlug()` had a `.limit(500)` bug that missed most companies
+- Added proper status/plan filtering to company queries to match listing page logic
+
+### Mobile Responsiveness (5d6963d)
+- Fixed newsletter popup overflowing viewport on mobile
+- Added mobile-visible Apply button on job detail pages (was hidden below `lg:` breakpoint)
+- Responsive card padding (`p-5 sm:p-8`) across job detail, pricing, post-job, about pages
+- Responsive text sizes for pricing, 404, hero sections
+- Improved touch targets on lobbying entities pagination and filter chips (44px minimum)
+- Flex-wrap on alerts frequency radios for small screens
+
+### Performance & SEO Hardening (01c10c9)
+- Added `allowDiskUse` to career guide aggregation queries (12,000+ docs)
+- Added MongoDB indexes for career guide pagination
+- Production hardening for large collection queries
+
+## Design System
+
+### Colors
+- **EU Blue:** `#003399` — primary brand color
+- **EU Yellow:** `#FFCC00` — accent/CTA color
+- **EU Dark:** `#001a4d` — dark variant
+- **EU Light:** `#e6ecf5` — light backgrounds
+
+### Key Classes
+- `.btn-primary` — primary action buttons (EU blue)
+- `.btn-secondary` — secondary buttons
+- `.input-field` — form inputs
+- `.badge-*` — status badges
+
+## License
 
 MIT
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
----
-
-Built with ❤️ for the EU bubble in Brussels 🇪🇺
