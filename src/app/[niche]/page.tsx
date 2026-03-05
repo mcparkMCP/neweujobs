@@ -19,30 +19,40 @@ function buildNicheQuery(filters: {
   titleKeywords?: string[];
 }) {
   const query: Record<string, unknown> = { status: 'active' };
-  const conditions: Record<string, unknown>[] = [];
+
+  // Location filters (cities, countries, companyPatterns) are OR'd — a job
+  // matches if it's in the right city OR country OR from a known org.
+  const locationOr: Record<string, unknown>[] = [];
 
   if (filters.cities?.length) {
-    conditions.push({ city: { $in: filters.cities.map(c => new RegExp(c, 'i')) } });
+    locationOr.push({ city: { $in: filters.cities.map(c => new RegExp(c, 'i')) } });
   }
   if (filters.countries?.length) {
-    conditions.push({ country: { $in: filters.countries.map(c => new RegExp(c, 'i')) } });
+    locationOr.push({ country: { $in: filters.countries.map(c => new RegExp(c, 'i')) } });
   }
   if (filters.companyPatterns?.length) {
-    conditions.push({
-      $or: filters.companyPatterns.map(p => ({ companyName: { $regex: p, $options: 'i' } }))
-    });
+    locationOr.push(
+      ...filters.companyPatterns.map(p => ({ companyName: { $regex: p, $options: 'i' } }))
+    );
+  }
+
+  // Non-location filters (seniority, titleKeywords) are AND'd on top.
+  const andConditions: Record<string, unknown>[] = [];
+
+  if (locationOr.length > 0) {
+    andConditions.push({ $or: locationOr });
   }
   if (filters.seniority?.length) {
-    conditions.push({ seniority: { $in: filters.seniority } });
+    andConditions.push({ seniority: { $in: filters.seniority } });
   }
   if (filters.titleKeywords?.length) {
-    conditions.push({
+    andConditions.push({
       $or: filters.titleKeywords.map(k => ({ title: { $regex: k, $options: 'i' } }))
     });
   }
 
-  if (conditions.length > 0) {
-    query.$and = conditions;
+  if (andConditions.length > 0) {
+    query.$and = andConditions;
   }
 
   return query;
