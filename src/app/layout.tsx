@@ -11,14 +11,14 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://eujobs.co'),
-  title: 'EU Jobs Brussels - Find Your Career in the EU Bubble',
+  title: 'EUJobs.co - Find Your Career in the EU Bubble',
   description: 'The leading job board for EU institutions, NGOs, think tanks, and public affairs positions in Brussels. Find your next career opportunity in the European Union.',
   keywords: 'EU jobs, Brussels jobs, European Commission, EU careers, public affairs, lobbying, NGO jobs, think tank jobs, EU traineeship',
   openGraph: {
-    title: 'EU Jobs Brussels - Find Your Career in the EU Bubble',
+    title: 'EUJobs.co - Find Your Career in the EU Bubble',
     description: 'The leading job board for EU institutions, NGOs, think tanks, and public affairs positions in Brussels.',
     url: 'https://eujobs.co',
-    siteName: 'EU Jobs Brussels',
+    siteName: 'EUJobs.co',
     locale: 'en_EU',
     type: 'website',
   },
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'EU Jobs Brussels',
+    title: 'EUJobs.co',
     description: 'Find your next career opportunity in the EU bubble',
   },
   robots: {

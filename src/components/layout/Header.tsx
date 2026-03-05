@@ -31,7 +31,7 @@ export default function Header() {
               <div className="w-10 h-10 bg-eu-blue rounded-lg flex items-center justify-center">
                 <span className="text-eu-yellow font-bold text-xl">EU</span>
               </div>
-              <span className="text-xl font-bold text-eu-blue dark:text-eu-yellow">Jobs Brussels</span>
+              <span className="text-xl font-bold text-eu-blue dark:text-eu-yellow">EUJobs.co</span>
             </Link>
           </div>
 

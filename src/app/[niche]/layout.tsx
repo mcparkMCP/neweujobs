@@ -25,19 +25,19 @@ export async function generateMetadata({
 
     if (!niche) {
       return {
-        title: 'Not Found - EU Jobs Brussels',
+        title: 'Not Found - EUJobs.co',
       };
     }
 
     return {
-      title: `${niche.name} - EU Jobs Brussels`,
+      title: `${niche.name} - EUJobs.co`,
       description: niche.description,
       keywords: niche.keywords.join(', '),
       openGraph: {
-        title: `${niche.name} - EU Jobs Brussels`,
+        title: `${niche.name} - EUJobs.co`,
         description: niche.description,
         url: `https://eujobs.co/${niche.slug}`,
-        siteName: 'EU Jobs Brussels',
+        siteName: 'EUJobs.co',
         locale: 'en_EU',
         type: 'website',
       },
@@ -49,7 +49,7 @@ export async function generateMetadata({
     };
   } catch {
     return {
-      title: 'EU Jobs Brussels',
+      title: 'EUJobs.co',
     };
   }
 }

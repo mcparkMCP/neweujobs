@@ -3,8 +3,8 @@ import { Metadata } from 'next'
 import Breadcrumb from '@/components/Breadcrumb'
 
 export const metadata: Metadata = {
-  title: 'About EU Jobs Brussels',
-  description: 'Learn about EU Jobs Brussels, the leading job board for careers in EU institutions, NGOs, think tanks, and public affairs in Brussels.',
+  title: 'About EUJobs.co',
+  description: 'Learn about EUJobs.co, the leading job board for careers in EU institutions, NGOs, think tanks, and public affairs in Brussels.',
 }
 
 export default function AboutPage() {
@@ -25,7 +25,7 @@ export default function AboutPage() {
             Connecting EU Talent with Opportunity
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            EU Jobs Brussels is the leading job board for professionals seeking careers in EU institutions, 
+            EUJobs.co is the leading job board for professionals seeking careers in EU institutions, 
             NGOs, think tanks, and public affairs in Brussels.
           </p>
         </div>

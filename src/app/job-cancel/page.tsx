@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Payment Cancelled - EU Jobs Brussels',
+  title: 'Payment Cancelled - EUJobs.co',
   description: 'Your payment has been cancelled. You can try again or browse available jobs.',
 };
 

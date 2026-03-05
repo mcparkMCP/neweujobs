@@ -4,7 +4,7 @@ import Breadcrumb from '@/components/Breadcrumb'
 
 export const metadata: Metadata = {
   title: 'Post a Job - Pricing Plans',
-  description: 'Post your job on EU Jobs Brussels and reach thousands of qualified EU affairs professionals. Plans starting from \u20AC99.',
+  description: 'Post your job on EUJobs.co and reach thousands of qualified EU affairs professionals. Plans starting from \u20AC99.',
 }
 
 export default function PricingPage() {

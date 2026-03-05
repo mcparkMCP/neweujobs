@@ -4,7 +4,7 @@ import { categories } from '@/lib/categories'
 import Breadcrumb from '@/components/Breadcrumb'
 
 export const metadata: Metadata = {
-  title: 'Job Categories - EU Jobs Brussels',
+  title: 'Job Categories - EUJobs.co',
   description: 'Browse EU job categories: institutions, agencies, NGOs, think tanks, public affairs, law firms, media, and traineeships in Brussels.',
 }
 

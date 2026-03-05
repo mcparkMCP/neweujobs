@@ -11,10 +11,10 @@ export default function Footer() {
               <div className="w-10 h-10 bg-eu-yellow rounded-lg flex items-center justify-center">
                 <span className="text-eu-blue font-bold text-xl">EU</span>
               </div>
-              <span className="text-xl font-bold">Jobs Brussels</span>
+              <span className="text-xl font-bold">EUJobs.co</span>
             </div>
             <p className="text-gray-300 text-sm">
-              The leading job board for EU institutions, NGOs, think tanks, and public affairs positions in Brussels.
+              The leading job board for EU institutions, NGOs, think tanks, and public affairs positions across Europe.
             </p>
           </div>
 
@@ -122,7 +122,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            &copy; {new Date().getFullYear()} EU Jobs Brussels. All rights reserved.
+            &copy; {new Date().getFullYear()} EUJobs.co. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-eu-yellow">

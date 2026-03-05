@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: {
-    template: '%s - Best in Brussels | EU Jobs Brussels',
+    template: '%s - Best in Brussels | EUJobs.co',
     default: 'Best in Brussels - EU Public Affairs Directory',
   },
   description: 'Comprehensive directory of EU public affairs consultancies, consultants, law firms, and more in Brussels.',

@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const entity = await getEntity(slug);
 
   if (!entity) {
-    return { title: 'Entity Not Found - EU Jobs Brussels' };
+    return { title: 'Entity Not Found - EUJobs.co' };
   }
 
   const description = entity.description
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: `${entity.name} - EU Lobbying Entity`,
       description,
       url: `https://eujobs.co/lobbying-entities/${slug}`,
-      siteName: 'EU Jobs Brussels',
+      siteName: 'EUJobs.co',
       type: 'website',
     },
     twitter: {

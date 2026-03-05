@@ -3,8 +3,8 @@ import { Metadata } from 'next'
 import Breadcrumb from '@/components/Breadcrumb'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service - EU Jobs Brussels',
-  description: 'Terms of service for EU Jobs Brussels. Read our terms and conditions for using the platform.',
+  title: 'Terms of Service - EUJobs.co',
+  description: 'Terms of service for EUJobs.co. Read our terms and conditions for using the platform.',
 }
 
 export default function TermsPage() {
@@ -23,13 +23,13 @@ export default function TermsPage() {
         <div className="bg-white rounded-xl shadow-md p-8 prose max-w-none">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">1. Acceptance of Terms</h2>
           <p className="text-gray-600 mb-6">
-            By accessing and using EU Jobs Brussels (the &quot;Service&quot;), you accept and agree to be bound by these 
+            By accessing and using EUJobs.co (the &quot;Service&quot;), you accept and agree to be bound by these 
             Terms of Service. If you do not agree to these terms, please do not use our Service.
           </p>
 
           <h2 className="text-2xl font-bold text-gray-900 mb-4">2. Description of Service</h2>
           <p className="text-gray-600 mb-6">
-            EU Jobs Brussels is an online job board platform that connects job seekers with employers in the 
+            EUJobs.co is an online job board platform that connects job seekers with employers in the 
             European Union affairs sector. We provide job listing services, application management tools, and 
             career resources.
           </p>
@@ -81,14 +81,14 @@ export default function TermsPage() {
 
           <h2 className="text-2xl font-bold text-gray-900 mb-4">8. Intellectual Property</h2>
           <p className="text-gray-600 mb-6">
-            All content on EU Jobs Brussels, including logos, text, graphics, and software, is the property of 
-            EU Jobs Brussels or its licensors and is protected by intellectual property laws. You may not 
+            All content on EUJobs.co, including logos, text, graphics, and software, is the property of 
+            EUJobs.co or its licensors and is protected by intellectual property laws. You may not 
             reproduce, distribute, or create derivative works without our express permission.
           </p>
 
           <h2 className="text-2xl font-bold text-gray-900 mb-4">9. Limitation of Liability</h2>
           <p className="text-gray-600 mb-6">
-            EU Jobs Brussels is provided &quot;as is&quot; without warranties of any kind. We are not liable for any 
+            EUJobs.co is provided &quot;as is&quot; without warranties of any kind. We are not liable for any 
             indirect, incidental, or consequential damages arising from your use of the Service. Our total 
             liability shall not exceed the amount paid by you in the past 12 months.
           </p>
@@ -118,7 +118,7 @@ export default function TermsPage() {
             For questions about these Terms, please contact us at:
           </p>
           <div className="bg-gray-50 rounded-lg p-4 mb-6">
-            <p className="text-gray-700"><strong>Email:</strong> legal@eujobs.brussels</p>
+            <p className="text-gray-700"><strong>Email:</strong> madan@eujobs.works</p>
             <p className="text-gray-700"><strong>Address:</strong> Rue de la Loi 200, 1049 Brussels, Belgium</p>
           </div>
         </div>

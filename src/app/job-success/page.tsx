@@ -133,7 +133,7 @@ function JobSuccessContent() {
           Payment Successful!
         </h1>
         <p className="text-gray-600 dark:text-gray-300 mb-4">
-          Your job posting has been activated and is now live on EU Jobs Brussels.
+          Your job posting has been activated and is now live on EUJobs.co.
         </p>
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
           Redirecting to home in {countdown} second{countdown !== 1 ? 's' : ''}...

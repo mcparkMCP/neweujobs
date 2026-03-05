@@ -4,7 +4,7 @@ import { getCareerGuides } from '@/lib/careerGuideData'
 import Breadcrumb from '@/components/Breadcrumb'
 
 export const metadata: Metadata = {
-  title: 'Blog - EU Jobs Brussels',
+  title: 'Blog - EUJobs.co',
   description: 'Insights, career advice, and analysis on working in EU institutions, public affairs, and the Brussels bubble.',
 }
 

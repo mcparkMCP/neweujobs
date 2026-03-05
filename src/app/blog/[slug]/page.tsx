@@ -94,20 +94,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getCareerGuideBySlug(decodeURIComponent(slug))
 
   if (!post) {
-    return { title: 'Article Not Found - EU Jobs Brussels' }
+    return { title: 'Article Not Found - EUJobs.co' }
   }
 
   const description = sanitizeDescription(post.description, post.contentHtml)
     || `${post.title} - Career advice and insights for working in EU institutions and Brussels.`
 
   return {
-    title: `${post.title} - EU Jobs Brussels Blog`,
+    title: `${post.title} - EUJobs.co Blog`,
     description,
     openGraph: {
       title: post.title,
       description,
       url: `https://eujobs.co/blog/${slug}`,
-      siteName: 'EU Jobs Brussels',
+      siteName: 'EUJobs.co',
       type: 'article',
       publishedTime: post.publishedDate,
       authors: [post.author || 'EU Jobs Team'],
@@ -145,7 +145,7 @@ export default async function BlogPostPage({ params }: Props) {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'EU Jobs Brussels',
+      name: 'EUJobs.co',
       url: 'https://eujobs.co',
     },
     mainEntityOfPage: `https://eujobs.co/blog/${slug}`,

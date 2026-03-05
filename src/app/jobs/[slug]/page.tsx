@@ -16,17 +16,17 @@ export async function generateMetadata({ params }: JobDetailPageProps): Promise<
   const job = await getJobBySlug(slug)
 
   if (!job) {
-    return { title: 'Job Not Found - EU Jobs Brussels' }
+    return { title: 'Job Not Found - EUJobs.co' }
   }
 
   return {
-    title: `${job.title} at ${job.company.name} - EU Jobs Brussels`,
+    title: `${job.title} at ${job.company.name} - EUJobs.co`,
     description: job.description.replace(/<[^>]*>/g, '').slice(0, 160),
     openGraph: {
       title: `${job.title} at ${job.company.name}`,
       description: job.description.replace(/<[^>]*>/g, '').slice(0, 160),
       url: `https://eujobs.co/jobs/${job.slug}`,
-      siteName: 'EU Jobs Brussels',
+      siteName: 'EUJobs.co',
       type: 'website',
     },
   }

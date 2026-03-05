@@ -2,7 +2,7 @@ import FairPayCalculator from '@/components/FairPayCalculator';
 import Breadcrumb from '@/components/Breadcrumb';
 
 export const metadata = {
-  title: 'Fair Pay Calculator - EU Jobs Brussels',
+  title: 'Fair Pay Calculator - EUJobs.co',
   description: 'Find out the fair salary range for your role in the EU bubble. Compare compensation across consultancy, trade associations, in-house, and NGO sectors.',
 };
 

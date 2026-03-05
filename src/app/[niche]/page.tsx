@@ -95,7 +95,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description,
       type: 'website',
       url: `https://eujobs.co/${nicheSlug}`,
-      siteName: 'EU Jobs Brussels',
+      siteName: 'EUJobs.co',
     },
   };
 }

@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: CategoryDetailPageProps): Pro
       title: `${category.name} Jobs in the EU`,
       description,
       url: `https://eujobs.co/categories/${slug}`,
-      siteName: 'EU Jobs Brussels',
+      siteName: 'EUJobs.co',
       type: 'website',
     },
     twitter: {

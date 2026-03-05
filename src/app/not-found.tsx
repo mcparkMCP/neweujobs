@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Page Not Found - EU Jobs Brussels',
+  title: 'Page Not Found - EUJobs.co',
 }
 
 export default function NotFound() {

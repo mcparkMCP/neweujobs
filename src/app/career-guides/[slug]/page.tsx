@@ -68,7 +68,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const guide = await getOrgCareerGuideBySlug(slug)
 
   if (!guide) {
-    return { title: 'Career Guide Not Found - EU Jobs Brussels' }
+    return { title: 'Career Guide Not Found - EUJobs.co' }
   }
 
   const description = guide.description
@@ -76,13 +76,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     || `Career guide for ${guide.organization}. Learn how to get hired, interview tips, salary info, and insider advice.`
 
   return {
-    title: `${guide.title} - EU Jobs Brussels`,
+    title: `${guide.title} - EUJobs.co`,
     description,
     openGraph: {
       title: guide.title,
       description,
       url: `https://eujobs.co/career-guides/${slug}`,
-      siteName: 'EU Jobs Brussels',
+      siteName: 'EUJobs.co',
       type: 'article',
       publishedTime: guide.generatedAt,
     },
@@ -117,11 +117,11 @@ export default async function OrgCareerGuidePage({ params }: Props) {
     datePublished: guide.generatedAt,
     author: {
       '@type': 'Organization',
-      name: 'EU Jobs Brussels',
+      name: 'EUJobs.co',
     },
     publisher: {
       '@type': 'Organization',
-      name: 'EU Jobs Brussels',
+      name: 'EUJobs.co',
       url: 'https://eujobs.co',
     },
     mainEntityOfPage: `https://eujobs.co/career-guides/${slug}`,

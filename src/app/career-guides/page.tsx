@@ -6,13 +6,13 @@ import Breadcrumb from '@/components/Breadcrumb'
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: 'Organization Career Guides - EU Jobs Brussels',
+  title: 'Organization Career Guides - EUJobs.co',
   description: 'Browse career guides for over 12,000 EU lobbying organizations. Learn how to get hired, interview tips, salary info, and insider advice.',
   openGraph: {
-    title: 'Organization Career Guides - EU Jobs Brussels',
+    title: 'Organization Career Guides - EUJobs.co',
     description: 'Browse career guides for over 12,000 EU lobbying organizations.',
     url: 'https://eujobs.co/career-guides',
-    siteName: 'EU Jobs Brussels',
+    siteName: 'EUJobs.co',
     type: 'website',
   },
 }

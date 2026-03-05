@@ -28,7 +28,7 @@ export function NicheLanding({ niche, jobs }: NicheLandingProps) {
     url: `https://eujobs.co/${niche.slug}`,
     publisher: {
       '@type': 'Organization',
-      name: 'EU Jobs Brussels',
+      name: 'EUJobs.co',
       url: 'https://eujobs.co',
     },
   };
@@ -236,7 +236,7 @@ export function NicheLanding({ niche, jobs }: NicheLandingProps) {
         <p>
           Looking for more opportunities? Check out{' '}
           <Link href="/" className="text-eu-blue hover:underline">
-            EU Jobs Brussels
+            EUJobs.co
           </Link>
           {' '}- The leading EU job board.
         </p>

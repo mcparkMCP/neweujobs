@@ -16,17 +16,17 @@ export async function generateMetadata({ params }: CompanyDetailPageProps): Prom
   const company = await getCompanyBySlug(slug)
 
   if (!company) {
-    return { title: 'Company Not Found - EU Jobs Brussels' }
+    return { title: 'Company Not Found - EUJobs.co' }
   }
 
   return {
-    title: `${company.name} - Jobs & Company Profile - EU Jobs Brussels`,
+    title: `${company.name} - Jobs & Company Profile - EUJobs.co`,
     description: `View open positions and learn about ${company.name}. ${company.industry} in ${company.location}.`,
     openGraph: {
-      title: `${company.name} - EU Jobs Brussels`,
+      title: `${company.name} - EUJobs.co`,
       description: `View open positions at ${company.name}`,
       url: `https://eujobs.co/companies/${company.slug}`,
-      siteName: 'EU Jobs Brussels',
+      siteName: 'EUJobs.co',
       type: 'website',
     },
   }

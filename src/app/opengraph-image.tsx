@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'EU Jobs Brussels - Find Your Career in the EU Bubble'
+export const alt = 'EUJobs.co - Find Your Career in the EU Bubble'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -21,7 +21,7 @@ export default async function Image() {
         }}
       >
         <div style={{ fontSize: 72, fontWeight: 'bold', color: 'white', marginBottom: 16, display: 'flex' }}>
-          EU Jobs Brussels
+          EUJobs.co
         </div>
         <div style={{ fontSize: 32, color: '#FFD700', display: 'flex' }}>
           Find Your Career in the EU Bubble
