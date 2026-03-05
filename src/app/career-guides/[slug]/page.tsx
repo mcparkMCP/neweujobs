@@ -42,7 +42,7 @@ function extractFAQsFromHTML(html: string | undefined): { question: string; answ
         ? afterHeading.slice(0, nextHeadingMatch.index)
         : afterHeading.slice(0, 1000)
       // Extract first paragraph
-      const paraMatch = section.match(/<p[^>]*>(.*?)<\/p>/is)
+      const paraMatch = section.match(/<p[^>]*>([\s\S]*?)<\/p>/i)
       if (paraMatch) {
         const answer = paraMatch[1].replace(/<[^>]*>/g, '').trim()
         if (answer.length > 20) {
